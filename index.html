@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Éclat Coiffure — Salon de coiffure</title>
+  <meta name="description" content="Éclat Coiffure, votre salon de coiffure. Coupes, colorations, soins et coiffures événementielles.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Base ─────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose: #E8C4C8;
+      --rose-dark: #C4929A;
+      --white: #FFF9F9;
+      --gray: #6B6B6B;
+      --dark: #3A3A3A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── Navigation ───────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.2rem 0;
+      transition: background .3s, box-shadow .3s, padding .3s;
+    }
+
+    .nav.scrolled {
+      background: rgba(255, 249, 249, .97);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, .06);
+      padding: .8rem 0;
+    }
+
+    .nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: .5px;
+    }
+
+    .nav__logo span { color: var(--rose-dark); }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav__links a {
+      font-size: .9rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      color: var(--dark);
+      transition: color .3s;
+    }
+
+    .nav__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--rose-dark);
+      transition: width .3s;
+    }
+
+    .nav__links a:hover::after,
+    .nav__links a:focus::after { width: 100%; }
+
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav__toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+
+    .nav__toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle.active span:nth-child(2) { opacity: 0; }
+    .nav__toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Hero ─────────────────────────────────────── */
+    .hero {
+      background: var(--white);
+      padding-top: 5.5rem;
+    }
+
+    .hero__top {
+      text-align: center;
+      padding: 2rem 1.5rem 1.8rem;
+    }
+
+    .hero__subtitle {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: var(--rose-dark);
+      margin-bottom: .8rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--dark);
+      margin-bottom: .8rem;
+      line-height: 1.15;
+    }
+
+    .hero__title em {
+      font-style: italic;
+      color: var(--rose-dark);
+    }
+
+    .hero__text {
+      max-width: 480px;
+      margin: 0 auto 1.2rem;
+      color: var(--gray);
+      font-size: .95rem;
+    }
+
+    .hero__infos {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero__info {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .78rem;
+      color: var(--gray);
+    }
+
+    .hero__info svg { flex-shrink: 0; }
+
+    .hero__image {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Salon gallery ──────────────────────────────── */
+    .salon__gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.2rem;
+      max-width: 1000px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .salon__photo {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: transform .4s, box-shadow .4s;
+    }
+
+    .salon__photo:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(196, 146, 154, .18);
+    }
+
+
+    .btn {
+      display: inline-block;
+      padding: .9rem 2.6rem;
+      border-radius: 50px;
+      font-family: 'Lato', sans-serif;
+      font-size: .95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      transition: transform .3s, box-shadow .3s, background .3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn--primary {
+      background: var(--rose-dark);
+      color: #fff;
+    }
+
+    .btn--primary:hover,
+    .btn--primary:focus {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(196, 146, 154, .35);
+    }
+
+    /* ── Section commons ─────────────────────────── */
+    section { padding: 5rem 1.5rem; }
+
+    .section__label {
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--rose-dark);
+      text-align: center;
+      margin-bottom: .6rem;
+    }
+
+    .section__title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      text-align: center;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .section__line {
+      width: 60px;
+      height: 2px;
+      background: var(--rose-dark);
+      margin: 0 auto 3rem;
+    }
+
+    /* ── Le Salon ─────────────────────────────────── */
+    .salon { background: #fff; }
+
+    .salon__intro {
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+      text-align: center;
+      color: var(--gray);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .values {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .value {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-radius: 16px;
+      background: var(--white);
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .value:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(196, 146, 154, .12);
+    }
+
+    .value__icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1.2rem;
+      background: var(--rose);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .value__title {
+      font-size: 1.2rem;
+      margin-bottom: .6rem;
+      color: var(--dark);
+    }
+
+    .value__text {
+      color: var(--gray);
+      font-size: .95rem;
+    }
+
+    /* ── Prestations ─────────────────────────────── */
+    .prestations {
+      background: var(--white);
+      padding-bottom: 2rem;
+    }
+
+    .prestas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .presta {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(196, 146, 154, .08);
+      transition: transform .4s, box-shadow .4s;
+    }
+
+    .presta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(196, 146, 154, .16);
+    }
+
+    .presta__img-wrap {
+      height: 260px;
+      overflow: hidden;
+    }
+
+    .presta__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s;
+    }
+
+    .presta:hover .presta__img {
+      transform: scale(1.04);
+    }
+
+    .presta__body {
+      padding: 1.8rem 2rem 2rem;
+    }
+
+    .presta__number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--rose);
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+
+    .presta__title {
+      font-size: 1.35rem;
+      color: var(--dark);
+      margin-bottom: .6rem;
+    }
+
+    .presta__desc {
+      color: var(--gray);
+      font-size: .9rem;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .presta__price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--rose-dark);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .presta__link {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--rose-dark);
+      transition: gap .3s;
+    }
+
+    .presta__link:hover { gap: .8rem; }
+
+    /* ── Réservation ──────────────────────────────── */
+    .reservation { background: #fff; }
+
+    .booking {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--white);
+      padding: 2.5rem 2.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(196, 146, 154, .1);
+    }
+
+    /* Progress bar */
+    .progress {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .progress__step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .progress__circle {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid rgba(232, 196, 200, .6);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--gray);
+      transition: all .3s;
+    }
+
+    .progress__step.active .progress__circle {
+      border-color: var(--rose-dark);
+      background: var(--rose-dark);
+      color: #fff;
+    }
+
+    .progress__step.done .progress__circle {
+      border-color: var(--rose-dark);
+      background: var(--rose-dark);
+      color: #fff;
+    }
+
+    .progress__label {
+      font-size: .75rem;
+      margin-top: .4rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: color .3s;
+    }
+
+    .progress__step.active .progress__label,
+    .progress__step.done .progress__label { color: var(--rose-dark); font-weight: 700; }
+
+    .progress__step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 17px;
+      left: calc(50% + 22px);
+      width: calc(100% - 44px);
+      height: 2px;
+      background: rgba(232, 196, 200, .4);
+      z-index: 0;
+    }
+
+    .progress__step.done:not(:last-child)::after {
+      background: var(--rose-dark);
+    }
+
+    /* Steps container */
+    .step { display: none; animation: fadeStep .35s ease; }
+    .step.active { display: block; }
+
+    @keyframes fadeStep {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Step 1 — Service selection */
+    .step__title {
+      font-size: 1.15rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-btn {
+      background: #fff;
+      border: 2px solid rgba(232, 196, 200, .4);
+      border-radius: 14px;
+      padding: 1.4rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .3s, box-shadow .3s, transform .2s;
+      position: relative;
+    }
+
+    .service-btn:hover {
+      border-color: var(--rose);
+      transform: translateY(-2px);
+    }
+
+    .service-btn.selected {
+      border-color: var(--rose-dark);
+      box-shadow: 0 4px 15px rgba(196, 146, 154, .2);
+    }
+
+    .service-btn.selected::after {
+      content: '\2713';
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: .8rem;
+      color: #fff;
+      background: var(--rose-dark);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-btn__icon {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: .4rem;
+    }
+
+    .service-btn__name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--dark);
+      display: block;
+    }
+
+    .service-btn__price {
+      font-size: .8rem;
+      color: var(--rose-dark);
+      margin-top: .2rem;
+      display: block;
+    }
+
+    /* Step 2 — Calendar */
+    .calendar {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid rgba(232, 196, 200, .3);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .calendar__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
+    }
+
+    .calendar__nav {
+      background: none;
+      border: 1px solid rgba(232, 196, 200, .5);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, border-color .2s;
+    }
+
+    .calendar__nav:hover {
+      background: var(--rose);
+      border-color: var(--rose);
+    }
+
+    .calendar__month {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--dark);
+      text-transform: capitalize;
+    }
+
+    .calendar__weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      margin-bottom: .5rem;
+    }
+
+    .calendar__weekday {
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--gray);
+      padding: .4rem 0;
+    }
+
+    .calendar__days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar__day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      font-size: .9rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: var(--dark);
+      transition: background .2s, color .2s;
+    }
+
+    .calendar__day:hover:not(.disabled):not(.empty) {
+      background: var(--rose);
+    }
+
+    .calendar__day.selected {
+      background: var(--rose-dark);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .calendar__day.today:not(.selected) {
+      border: 2px solid var(--rose-dark);
+    }
+
+    .calendar__day.disabled {
+      color: #ccc;
+      cursor: default;
+    }
+
+    .calendar__day.empty {
+      cursor: default;
+    }
+
+    /* Time slots */
+    .slots__title {
+      font-size: .95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--dark);
+      margin-bottom: .8rem;
+      text-align: center;
+    }
+
+    .slots-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .slot-btn {
+      padding: .6rem .4rem;
+      border: 1px solid rgba(232, 196, 200, .5);
+      border-radius: 10px;
+      background: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: .85rem;
+      color: var(--dark);
+      cursor: pointer;
+      transition: border-color .2s, background .2s, color .2s;
+      text-align: center;
+    }
+
+    .slot-btn:hover { border-color: var(--rose-dark); }
+
+    .slot-btn.selected {
+      background: var(--rose-dark);
+      border-color: var(--rose-dark);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* Step 3 — Contact + Recap */
+    .recap {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid rgba(232, 196, 200, .3);
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .recap__item {
+      display: flex;
+      flex-direction: column;
+      gap: .2rem;
+    }
+
+    .recap__label {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+      font-weight: 700;
+    }
+
+    .recap__value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--rose-dark);
+      font-weight: 700;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group--full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: .85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--dark);
+      margin-bottom: .4rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: .75rem 1rem;
+      border: 1px solid rgba(232, 196, 200, .6);
+      border-radius: 10px;
+      font-family: 'Lato', sans-serif;
+      font-size: .95rem;
+      color: var(--dark);
+      background: #fff;
+      transition: border-color .3s, box-shadow .3s;
+      -webkit-appearance: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--rose-dark);
+      box-shadow: 0 0 0 3px rgba(196, 146, 154, .15);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    /* Navigation buttons */
+    .step__nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    .step__nav--center { justify-content: center; }
+
+    .btn--outline {
+      background: none;
+      border: 2px solid var(--rose-dark);
+      color: var(--rose-dark);
+    }
+
+    .btn--outline:hover {
+      background: var(--rose);
+    }
+
+    .form__note {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    /* ── Contact / Footer ────────────────────────── */
+    .footer {
+      background: var(--dark);
+      color: rgba(255, 255, 255, .8);
+      padding: 4rem 1.5rem 2rem;
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2.5rem;
+      max-width: 1000px;
+      margin: 0 auto 3rem;
+    }
+
+    .footer__heading {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .footer p, .footer li {
+      font-size: .9rem;
+      line-height: 1.8;
+    }
+
+    .footer a {
+      transition: color .3s;
+    }
+
+    .footer a:hover { color: var(--rose); }
+
+    .social {
+      display: flex;
+      gap: 1rem;
+      margin-top: .8rem;
+    }
+
+    .social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      transition: background .3s, border-color .3s;
+    }
+
+    .social a:hover {
+      background: var(--rose-dark);
+      border-color: var(--rose-dark);
+      color: #fff;
+    }
+
+    .footer__copy {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+      font-size: .8rem;
+      color: rgba(255,255,255,.4);
+    }
+
+    /* ── Animations (fade-in on scroll) ──────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Responsive ───────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        max-width: 300px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        padding: 5rem 2rem 2rem;
+        gap: 1.5rem;
+        box-shadow: -4px 0 20px rgba(0,0,0,.08);
+        transition: right .35s ease;
+      }
+
+      .nav__links.open { right: 0; }
+      .nav__toggle { display: flex; }
+
+      .hero__image { height: 300px; }
+      .hero__infos { gap: 1rem; }
+
+      .salon__gallery { grid-template-columns: 1fr; }
+
+      .prestas-grid { grid-template-columns: 1fr; }
+      .presta__img-wrap { height: 220px; }
+      .presta__body { padding: 1.5rem 1.2rem; }
+      .salon__photo { height: 200px; }
+
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .slots-grid { grid-template-columns: repeat(3, 1fr); }
+
+      .form-grid { grid-template-columns: 1fr; }
+
+      .booking { padding: 2rem 1.2rem; }
+
+      .recap { flex-direction: column; gap: .8rem; }
+
+      section { padding: 3.5rem 1rem; }
+    }
+
+    /* ── Skip link (accessibility) ────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--rose-dark);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 4px;
+      z-index: 200;
+      font-size: .9rem;
+    }
+
+    .skip-link:focus { top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Skip link -->
+  <a href="#main" class="skip-link">Aller au contenu principal</a>
+
+  <!-- ─── Navigation ─────────────────────────────── -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="container">
+      <a href="#accueil" class="nav__logo">Éclat <span>Coiffure</span></a>
+      <ul class="nav__links" id="navLinks" role="list">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#salon">Le Salon</a></li>
+        <li><a href="#prestations">Prestations</a></li>
+        <li><a href="#reservation">Réservation</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav__toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ─── Hero ───────────────────────────────────── -->
+    <section class="hero" id="accueil">
+      <div class="hero__top">
+        <p class="hero__subtitle">Salon de coiffure</p>
+        <h1 class="hero__title">Révélez votre <em>éclat</em></h1>
+        <p class="hero__text">Un moment de douceur rien que pour vous. Nos experts subliment votre beauté avec passion et savoir-faire.</p>
+        <div class="hero__infos">
+          <span class="hero__info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            75010 Paris
+          </span>
+          <span class="hero__info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Mar–Sam : 9h–19h
+          </span>
+          <span class="hero__info">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            01 23 45 67 89
+          </span>
+        </div>
+        <a href="#reservation" class="btn btn--primary">Prendre rendez-vous</a>
+      </div>
+      <img
+        src="https://images.unsplash.com/photo-1562322140-8baeececf3df?w=1600&q=80"
+        alt="Coiffeuse stylisant les cheveux d'une cliente"
+        class="hero__image"
+        loading="eager"
+      >
+    </section>
+
+    <!-- ─── Le Salon ───────────────────────────────── -->
+    <section class="salon" id="salon">
+      <p class="section__label">Notre philosophie</p>
+      <h2 class="section__title">Le Salon</h2>
+      <div class="section__line"></div>
+
+      <p class="salon__intro reveal">
+        Chez Éclat Coiffure, chaque visite est une parenthèse de bien-être.
+        Nous prenons le temps de vous écouter pour créer un style qui vous ressemble,
+        dans un cadre chaleureux et raffiné. Notre équipe passionnée met son expertise
+        à votre service pour révéler le meilleur de vous-même.
+      </p>
+
+      <div class="salon__gallery reveal">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80" alt="Intérieur chaleureux du salon" class="salon__photo">
+        <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80" alt="Femme aux cheveux brillants et soignés" class="salon__photo">
+        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&q=80" alt="Coiffeuse en plein travail" class="salon__photo">
+      </div>
+
+      <div class="values">
+        <article class="value reveal">
+          <div class="value__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+          </div>
+          <h3 class="value__title">Expertise</h3>
+          <p class="value__text">Des coiffeurs diplômés et formés aux dernières tendances pour un résultat toujours impeccable.</p>
+        </article>
+        <article class="value reveal">
+          <div class="value__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <h3 class="value__title">Bien-être</h3>
+          <p class="value__text">Un espace cosy pensé pour votre confort, où chaque soin est un moment de détente absolue.</p>
+        </article>
+        <article class="value reveal">
+          <div class="value__icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3 class="value__title">Écoute</h3>
+          <p class="value__text">Nous prenons le temps de comprendre vos envies pour un résultat sur-mesure qui vous ressemble.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── Prestations ────────────────────────────── -->
+    <section class="prestations" id="prestations">
+      <p class="section__label">Nos services</p>
+      <h2 class="section__title">Prestations</h2>
+      <div class="section__line"></div>
+
+      <div class="prestas-grid">
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1634449571010-02389ed0f9b0?w=800&q=80" alt="Coupe de cheveux femme" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">01</p>
+            <h3 class="presta__title">Coupe</h3>
+            <p class="presta__desc">Coupe personnalisée femme ou homme, adaptée à la texture de vos cheveux et à la forme de votre visage. Diagnostic capillaire inclus.</p>
+            <p class="presta__price">Dès 25 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80" alt="Application de coloration" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">02</p>
+            <h3 class="presta__title">Coloration</h3>
+            <p class="presta__desc">Couleur, mèches, balayage ou ombré — des produits de qualité pour un rendu naturel et lumineux. Conseil couleur personnalisé.</p>
+            <p class="presta__price">Dès 45 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=800&q=80" alt="Soin capillaire professionnel" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">03</p>
+            <h3 class="presta__title">Soins</h3>
+            <p class="presta__desc">Soins profonds, kératine et rituels capillaires pour nourrir, réparer et sublimer vos cheveux. Résultats visibles dès la première séance.</p>
+            <p class="presta__price">Dès 20 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=800&q=80" alt="Brushing professionnel" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">04</p>
+            <h3 class="presta__title">Brushing</h3>
+            <p class="presta__desc">Brushing lisse, bouclé ou wavy pour un résultat salon au quotidien. Finitions soignées et tenue longue durée garanties.</p>
+            <p class="presta__price">Dès 18 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="Coiffure de mariage élégante" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">05</p>
+            <h3 class="presta__title">Coiffure événementielle</h3>
+            <p class="presta__desc">Chignon, tresse ou coiffure élaborée pour mariages, galas et occasions spéciales. Essai coiffure offert pour les mariées.</p>
+            <p class="presta__price">Dès 55 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+
+        <article class="presta reveal">
+          <div class="presta__img-wrap">
+            <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=800&q=80" alt="Taille de barbe professionnelle" class="presta__img">
+          </div>
+          <div class="presta__body">
+            <p class="presta__number">06</p>
+            <h3 class="presta__title">Barbe &amp; Homme</h3>
+            <p class="presta__desc">Taille et entretien de barbe, rasage traditionnel et soins dédiés à l'homme moderne. Service express disponible.</p>
+            <p class="presta__price">Dès 15 &euro;</p>
+            <a href="#reservation" class="presta__link">Réserver &rarr;</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── Réservation ────────────────────────────── -->
+    <section class="reservation" id="reservation">
+      <p class="section__label">Prendre rendez-vous</p>
+      <h2 class="section__title">Réservation</h2>
+      <div class="section__line"></div>
+
+      <div class="booking reveal" id="booking">
+        <!-- Progress bar -->
+        <div class="progress">
+          <div class="progress__step active" data-step="1">
+            <div class="progress__circle">1</div>
+            <span class="progress__label">Prestation</span>
+          </div>
+          <div class="progress__step" data-step="2">
+            <div class="progress__circle">2</div>
+            <span class="progress__label">Date</span>
+          </div>
+          <div class="progress__step" data-step="3">
+            <div class="progress__circle">3</div>
+            <span class="progress__label">Coordonnées</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Service selection -->
+        <div class="step active" id="step1">
+          <h3 class="step__title">Choisissez votre prestation</h3>
+          <div class="services-grid">
+            <button type="button" class="service-btn" data-service="Coupe" data-price="Dès 25 €">
+              <span class="service-btn__icon" aria-hidden="true">&#9986;</span>
+              <span class="service-btn__name">Coupe</span>
+              <span class="service-btn__price">Dès 25 €</span>
+            </button>
+            <button type="button" class="service-btn" data-service="Coloration" data-price="Dès 45 €">
+              <span class="service-btn__icon" aria-hidden="true">&#127912;</span>
+              <span class="service-btn__name">Coloration</span>
+              <span class="service-btn__price">Dès 45 €</span>
+            </button>
+            <button type="button" class="service-btn" data-service="Soins" data-price="Dès 20 €">
+              <span class="service-btn__icon" aria-hidden="true">&#10024;</span>
+              <span class="service-btn__name">Soins</span>
+              <span class="service-btn__price">Dès 20 €</span>
+            </button>
+            <button type="button" class="service-btn" data-service="Brushing" data-price="Dès 18 €">
+              <span class="service-btn__icon" aria-hidden="true">&#128168;</span>
+              <span class="service-btn__name">Brushing</span>
+              <span class="service-btn__price">Dès 18 €</span>
+            </button>
+            <button type="button" class="service-btn" data-service="Coiffure événementielle" data-price="Dès 55 €">
+              <span class="service-btn__icon" aria-hidden="true">&#128142;</span>
+              <span class="service-btn__name">Événementielle</span>
+              <span class="service-btn__price">Dès 55 €</span>
+            </button>
+            <button type="button" class="service-btn" data-service="Barbe &amp; Homme" data-price="Dès 15 €">
+              <span class="service-btn__icon" aria-hidden="true">&#129492;</span>
+              <span class="service-btn__name">Barbe &amp; Homme</span>
+              <span class="service-btn__price">Dès 15 €</span>
+            </button>
+          </div>
+          <div class="step__nav step__nav--center">
+            <button type="button" class="btn btn--primary" id="toStep2">Suivant</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Calendar + Time slots -->
+        <div class="step" id="step2">
+          <h3 class="step__title">Choisissez la date et l'heure</h3>
+          <div class="calendar" id="calendar">
+            <div class="calendar__header">
+              <button type="button" class="calendar__nav" id="calPrev" aria-label="Mois précédent">&#8249;</button>
+              <span class="calendar__month" id="calMonth"></span>
+              <button type="button" class="calendar__nav" id="calNext" aria-label="Mois suivant">&#8250;</button>
+            </div>
+            <div class="calendar__weekdays">
+              <span class="calendar__weekday">Lun</span>
+              <span class="calendar__weekday">Mar</span>
+              <span class="calendar__weekday">Mer</span>
+              <span class="calendar__weekday">Jeu</span>
+              <span class="calendar__weekday">Ven</span>
+              <span class="calendar__weekday">Sam</span>
+              <span class="calendar__weekday">Dim</span>
+            </div>
+            <div class="calendar__days" id="calDays"></div>
+          </div>
+          <div id="slotsSection" style="display:none">
+            <p class="slots__title">Créneaux disponibles</p>
+            <div class="slots-grid" id="slotsGrid"></div>
+          </div>
+          <div class="step__nav">
+            <button type="button" class="btn btn--outline" id="backStep1">Retour</button>
+            <button type="button" class="btn btn--primary" id="toStep3">Suivant</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Contact + Recap -->
+        <div class="step" id="step3">
+          <h3 class="step__title">Vos coordonnées</h3>
+          <div class="recap" id="recap"></div>
+          <form id="bookingForm" onsubmit="event.preventDefault(); alert('Merci ! Votre réservation a bien été envoyée. Nous vous confirmerons par téléphone sous 24 h.'); location.reload();">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+              </div>
+              <div class="form-group">
+                <label for="tel">Téléphone</label>
+                <input type="tel" id="tel" name="tel" placeholder="06 12 34 56 78" required>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="vous@exemple.fr" required>
+              </div>
+              <div class="form-group form-group--full">
+                <label for="message">Message <span style="font-weight:300;text-transform:none;letter-spacing:0">(optionnel)</span></label>
+                <textarea id="message" name="message" placeholder="Précisions, souhaits particuliers..."></textarea>
+              </div>
+            </div>
+            <div class="step__nav">
+              <button type="button" class="btn btn--outline" id="backStep2">Retour</button>
+              <button type="submit" class="btn btn--primary">Confirmer ma réservation</button>
+            </div>
+          </form>
+          <p class="form__note">Nous vous confirmerons votre rendez-vous par téléphone sous 24 h.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ─── Footer / Contact ───────────────────────── -->
+  <footer class="footer" id="contact">
+    <div class="footer__grid">
+      <div>
+        <h4 class="footer__heading">Éclat Coiffure</h4>
+        <p>Votre salon de coiffure au cœur de la ville. Expertise, bien-être et écoute depuis 2018.</p>
+      </div>
+      <div>
+        <h4 class="footer__heading">Contact</h4>
+        <ul>
+          <li>12 rue de la Beauté, 75010 Paris</li>
+          <li><a href="tel:+33123456789">01 23 45 67 89</a></li>
+          <li><a href="mailto:contact@eclat-coiffure.fr">contact@eclat-coiffure.fr</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">Horaires</h4>
+        <ul>
+          <li>Lundi : Fermé</li>
+          <li>Mar – Ven : 9h00 – 19h00</li>
+          <li>Samedi : 9h00 – 18h00</li>
+          <li>Dimanche : Fermé</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="footer__heading">Suivez-nous</h4>
+        <div class="social">
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <p class="footer__copy">&copy; 2025 Éclat Coiffure — Tous droits réservés</p>
+  </footer>
+
+  <!-- ─── JS ────────────────────────────────────── -->
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      toggle.classList.toggle('active');
+      toggle.setAttribute('aria-expanded', open);
+      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.classList.remove('active');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      });
+    });
+
+    // Navbar background on scroll
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Booking System ──────────────────────────────
+    const booking = {
+      service: null,
+      date: null,
+      slot: null
+    };
+
+    let currentStep = 1;
+    const steps = [document.getElementById('step1'), document.getElementById('step2'), document.getElementById('step3')];
+    const progressSteps = document.querySelectorAll('.progress__step');
+
+    function goToStep(n) {
+      steps[currentStep - 1].classList.remove('active');
+      currentStep = n;
+      steps[currentStep - 1].classList.add('active');
+
+      progressSteps.forEach((ps, i) => {
+        ps.classList.remove('active', 'done');
+        if (i + 1 < currentStep) ps.classList.add('done');
+        if (i + 1 === currentStep) ps.classList.add('active');
+      });
+    }
+
+    // Step 1: Service selection
+    const serviceBtns = document.querySelectorAll('.service-btn');
+    serviceBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        serviceBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        booking.service = btn.dataset.service;
+      });
+    });
+
+    document.getElementById('toStep2').addEventListener('click', () => {
+      if (!booking.service) {
+        alert('Veuillez choisir une prestation.');
+        return;
+      }
+      goToStep(2);
+      cal.render();
+    });
+
+    // Step 2: Calendar
+    const MONTHS_FR = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    const SLOTS = ['9h00','10h00','11h00','12h00','14h00','15h00','16h00','17h00'];
+
+    class Calendar {
+      constructor() {
+        const now = new Date();
+        this.month = now.getMonth();
+        this.year = now.getFullYear();
+        this.today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        this.container = document.getElementById('calDays');
+        this.monthLabel = document.getElementById('calMonth');
+      }
+
+      render() {
+        this.monthLabel.textContent = MONTHS_FR[this.month] + ' ' + this.year;
+        this.container.innerHTML = '';
+
+        const firstDay = new Date(this.year, this.month, 1);
+        // JS getDay: 0=Sun. We want Mon=0
+        let startDay = firstDay.getDay() - 1;
+        if (startDay < 0) startDay = 6;
+
+        const daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
+
+        // Empty cells before first day
+        for (let i = 0; i < startDay; i++) {
+          const empty = document.createElement('div');
+          empty.className = 'calendar__day empty';
+          this.container.appendChild(empty);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'calendar__day';
+          btn.textContent = d;
+
+          const date = new Date(this.year, this.month, d);
+          const dayOfWeek = date.getDay(); // 0=Sun, 1=Mon
+
+          // Disable past days, mondays (1) and sundays (0)
+          const isPast = date < this.today;
+          const isClosed = dayOfWeek === 0 || dayOfWeek === 1;
+
+          if (isPast || isClosed) {
+            btn.classList.add('disabled');
+          }
+
+          if (date.getTime() === this.today.getTime()) {
+            btn.classList.add('today');
+          }
+
+          // Check if this day is selected
+          if (booking.date && date.getTime() === booking.date.getTime()) {
+            btn.classList.add('selected');
+          }
+
+          if (!isPast && !isClosed) {
+            btn.addEventListener('click', () => this.selectDay(date, btn));
+          }
+
+          this.container.appendChild(btn);
+        }
+      }
+
+      selectDay(date, btn) {
+        this.container.querySelectorAll('.calendar__day').forEach(d => d.classList.remove('selected'));
+        btn.classList.add('selected');
+        booking.date = date;
+        booking.slot = null;
+        this.showSlots();
+      }
+
+      showSlots() {
+        const section = document.getElementById('slotsSection');
+        const grid = document.getElementById('slotsGrid');
+        section.style.display = 'block';
+        grid.innerHTML = '';
+
+        // Saturday: only morning + afternoon until 18h (same slots except open hours may differ)
+        // For simplicity, use same slots for all open days
+        SLOTS.forEach(time => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'slot-btn';
+          btn.textContent = time;
+
+          btn.addEventListener('click', () => {
+            grid.querySelectorAll('.slot-btn').forEach(s => s.classList.remove('selected'));
+            btn.classList.add('selected');
+            booking.slot = time;
+          });
+
+          grid.appendChild(btn);
+        });
+      }
+
+      prev() {
+        if (this.month === this.today.getMonth() && this.year === this.today.getFullYear()) return;
+        this.month--;
+        if (this.month < 0) { this.month = 11; this.year--; }
+        booking.date = null;
+        booking.slot = null;
+        document.getElementById('slotsSection').style.display = 'none';
+        this.render();
+      }
+
+      next() {
+        this.month++;
+        if (this.month > 11) { this.month = 0; this.year++; }
+        booking.date = null;
+        booking.slot = null;
+        document.getElementById('slotsSection').style.display = 'none';
+        this.render();
+      }
+    }
+
+    const cal = new Calendar();
+
+    document.getElementById('calPrev').addEventListener('click', () => cal.prev());
+    document.getElementById('calNext').addEventListener('click', () => cal.next());
+
+    document.getElementById('toStep3').addEventListener('click', () => {
+      if (!booking.date) {
+        alert('Veuillez choisir une date.');
+        return;
+      }
+      if (!booking.slot) {
+        alert('Veuillez choisir un créneau horaire.');
+        return;
+      }
+      // Build recap
+      const recap = document.getElementById('recap');
+      const dateStr = booking.date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      recap.innerHTML = `
+        <div class="recap__item">
+          <span class="recap__label">Prestation</span>
+          <span class="recap__value">${booking.service}</span>
+        </div>
+        <div class="recap__item">
+          <span class="recap__label">Date</span>
+          <span class="recap__value">${dateStr}</span>
+        </div>
+        <div class="recap__item">
+          <span class="recap__label">Heure</span>
+          <span class="recap__value">${booking.slot}</span>
+        </div>
+      `;
+      goToStep(3);
+    });
+
+    // Back buttons
+    document.getElementById('backStep1').addEventListener('click', () => goToStep(1));
+    document.getElementById('backStep2').addEventListener('click', () => goToStep(2));
+  </script>
+
+</body>
+</html>
