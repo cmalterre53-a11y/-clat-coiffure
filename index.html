@@ -140,17 +140,17 @@
     .hero__subtitle {
       font-family: 'Lato', sans-serif;
       font-weight: 300;
-      font-size: .8rem;
+      font-size: .9rem;
       text-transform: uppercase;
       letter-spacing: 4px;
       color: var(--rose-dark);
-      margin-bottom: .8rem;
+      margin-bottom: 1rem;
     }
 
     .hero__title {
-      font-size: clamp(2rem, 5vw, 3rem);
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
       color: var(--dark);
-      margin-bottom: .8rem;
+      margin-bottom: 1rem;
       line-height: 1.15;
     }
 
@@ -160,25 +160,25 @@
     }
 
     .hero__text {
-      max-width: 480px;
-      margin: 0 auto 1.2rem;
+      max-width: 520px;
+      margin: 0 auto 1.5rem;
       color: var(--gray);
-      font-size: .95rem;
+      font-size: 1.05rem;
     }
 
     .hero__infos {
       display: flex;
       justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
+      gap: 2rem;
+      margin-bottom: 2rem;
       flex-wrap: wrap;
     }
 
     .hero__info {
       display: flex;
       align-items: center;
-      gap: .4rem;
-      font-size: .78rem;
+      gap: .5rem;
+      font-size: .85rem;
       color: var(--gray);
     }
 
@@ -561,9 +561,14 @@
     }
 
     .service-btn__icon {
-      font-size: 1.6rem;
-      display: block;
-      margin-bottom: .4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto .6rem;
+      background: var(--white);
+      border-radius: 50%;
     }
 
     .service-btn__name {
@@ -1177,38 +1182,50 @@
           <h3 class="step__title">Choisissez votre prestation</h3>
           <div class="services-grid">
             <button type="button" class="service-btn" data-service="Coupe" data-price="Dès 25 €">
-              <span class="service-btn__icon" aria-hidden="true">&#9986;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
+              </span>
               <span class="service-btn__name">Coupe</span>
               <span class="service-btn__price">Dès 25 €</span>
             </button>
             <button type="button" class="service-btn" data-service="Coloration" data-price="Dès 45 €">
-              <span class="service-btn__icon" aria-hidden="true">&#127912;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6l3 3-3 3v8"/><path d="M8 11a4 4 0 0 0 8 0c0-2-2-4-4-6-2 2-4 4-4 6z"/></svg>
+              </span>
               <span class="service-btn__name">Coloration</span>
               <span class="service-btn__price">Dès 45 €</span>
             </button>
             <button type="button" class="service-btn" data-service="Soins" data-price="Dès 20 €">
-              <span class="service-btn__icon" aria-hidden="true">&#10024;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </span>
               <span class="service-btn__name">Soins</span>
               <span class="service-btn__price">Dès 20 €</span>
             </button>
             <button type="button" class="service-btn" data-service="Brushing" data-price="Dès 18 €">
-              <span class="service-btn__icon" aria-hidden="true">&#128168;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg>
+              </span>
               <span class="service-btn__name">Brushing</span>
               <span class="service-btn__price">Dès 18 €</span>
             </button>
             <button type="button" class="service-btn" data-service="Coiffure événementielle" data-price="Dès 55 €">
-              <span class="service-btn__icon" aria-hidden="true">&#128142;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>
+              </span>
               <span class="service-btn__name">Événementielle</span>
               <span class="service-btn__price">Dès 55 €</span>
             </button>
             <button type="button" class="service-btn" data-service="Barbe &amp; Homme" data-price="Dès 15 €">
-              <span class="service-btn__icon" aria-hidden="true">&#129492;</span>
+              <span class="service-btn__icon" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C4929A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
               <span class="service-btn__name">Barbe &amp; Homme</span>
               <span class="service-btn__price">Dès 15 €</span>
             </button>
           </div>
           <div class="step__nav step__nav--center">
-            <button type="button" class="btn btn--primary" id="toStep2">Suivant</button>
+            <button type="button" class="btn btn--primary" id="toStep2">Réserver</button>
           </div>
         </div>
 
